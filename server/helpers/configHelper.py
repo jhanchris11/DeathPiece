@@ -21,7 +21,7 @@ class ConfigHelper:
         for field in data.keys():
             config.add_section(field)
             for subfield in data[field].keys():
-                config.set(subfield,data[field][subfield])
+                config.set(field,subfield,data[field][subfield])
 
         try:
             with open(deep_exploit_path, 'w') as file:
