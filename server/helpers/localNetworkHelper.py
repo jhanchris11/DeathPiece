@@ -1,6 +1,6 @@
 from subprocess import Popen
 from subprocess import PIPE
-
+from functools import reduce
 
 class LocalNetworkHelper:
     @staticmethod
@@ -22,18 +22,21 @@ class LocalNetworkHelper:
             ips[i] = element.split('\t')
             i=i+1
         
-        key_list = []
-        for i in range(len(ips)):
-            
-            key_list.append(i)
-         
-        ip_dict = {}
         
-        for key in key_list:
-            for ip_elements in ips:
-                ip_dict[key] = ip_elements
+        ip_dict = []
+        
+        
+
+        keys = ['Host IP', 'Host MAC', 'Host Name']
 
         
+        
+        for i in range(len(ips)):
+            for value in ips[i]:
+                res = dict(zip(keys, ips[i]))
+            ip_dict.append(res)
+
+      
         return ip_dict
 
     

@@ -32,16 +32,19 @@ const Aside = () => {
                     <Link to='/' >Main</Link>
                 </Menu.Item>
                 <Menu.Item key="2" icon={<FileProtectOutlined />}>
+                    <Link to='/localnetwork'>LocalNetwork</Link>
+                </Menu.Item>
+                <Menu.Item key="3" icon={<FileProtectOutlined />}>
                     <Link to='/setting'>Setting</Link>
                 </Menu.Item>
 
-                <Menu.Item key="3" icon={<UserAddOutlined />}>
+                <Menu.Item key="4" icon={<UserAddOutlined />}>
                     <Link to='/attack'>Attack</Link>
                 </Menu.Item>
-                <Menu.Item key="4" icon={<LockOutlined />}>
+                <Menu.Item key="5" icon={<LockOutlined />}>
                     <Link to='/target'>Target</Link>
                 </Menu.Item>
-                <Menu.Item key="5" icon={<ImportOutlined />}>
+                <Menu.Item key="6" icon={<ImportOutlined />}>
                     <Link to='/report'>Reporte</Link>
                 </Menu.Item>
             </Menu>

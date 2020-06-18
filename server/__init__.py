@@ -1,10 +1,15 @@
 from flask import Flask, render_template
 from flask_restful import Resource,Api
 from flask_cors import CORS
+import sys
 
-from server.controllers.LocalNetwork import LocalNetwork
-from server.controllers.ConfigFile import ConfigFile
+from controllers.LocalNetwork import LocalNetwork
 
+from controllers.ConfigFile import ConfigFile
+
+
+
+print(sys.path)
 app = Flask(__name__)
 api = Api(app)
 
