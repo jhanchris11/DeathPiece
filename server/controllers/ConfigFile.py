@@ -6,9 +6,7 @@ from webargs import fields
 
 class ConfigFile(Resource):
     configRequest = {
-        'config': fields.String(
-            required=True
-        )
+        'config': fields.Dict(required=True)
     }
 
     def get(self):
