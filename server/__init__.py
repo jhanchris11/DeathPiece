@@ -8,8 +8,8 @@ from server.controllers.ConfigFile import ConfigFile
 app = Flask(__name__)
 api = Api(app)
 
-api.add_resource(LocalNetwork,'/local-network')
-api.add_resource(ConfigFile,'/config-file')
+api.add_resource(LocalNetwork,'/death-piece/local-network')
+api.add_resource(ConfigFile,'/death-piece/config-file')
 CORS(app)
 
 if __name__ == "__main__":
