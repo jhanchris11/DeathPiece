@@ -1,14 +1,14 @@
 from subprocess import Popen
 from subprocess import PIPE
-
+import nmap
+import pandas as pd
 
 class LocalNetworkHelper:
     @staticmethod
-    def getIpsFromLocalNetwork():
+    def getDataFromLocalNetwork():
         proc = Popen('sudo arp-scan --interface=eth0 --localnet', shell=True, stdout=PIPE, )
         scan_str = str(proc.communicate()[0])
-        scan_str = scan_str.replace("\\t", "\t").replace("\\n", "\n")
-        list_scan = scan_str.split('\n')
+        list_scan = scan_str.replace("\\t", "\t").replace("\\n", "\n").split('\n')
 
         ips = []
         for ip in list_scan:
@@ -21,32 +21,28 @@ class LocalNetworkHelper:
         for element in ips:
             ips[i] = element.split('\t')
             i=i+1
-        
-        key_list = []
-        for i in range(len(ips)):
-            
-            key_list.append(i)
-         
-        ip_dict = {}
-        
-        for key in key_list:
-            for ip_elements in ips:
-                ip_dict[key] = ip_elements
 
-        
+        ip_dict = []
+        keys = ['IP', 'MAC', 'NAME']
+
+        for i in range(len(ips)):
+            for value in ips[i]:
+                res = dict(zip(keys, ips[i]))
+            ip_dict.append(res)
+
         return ip_dict
 
-    
+    @staticmethod
     def getPortsOpen():
+        data_ip = LocalNetworkHelper().getDataFromLocalNetwork()
+        ipList = []
+        for d in data_ip:
+            ipList.append((d['IP']))
 
-        ips = LocalNetworkHelper().getIpsFromLocalNetwork()
-        ports = []
-        for i in range(len(ips)):
-            ip = ips[i][0]
-            proc = Popen('sudo nmap -O '+ip, shell=True, stdout=PIPE, )
-            scan_ports = str(proc.communicate()[0])
-            #scan_ports = scan_ports.replace("\\n", "\n")
-            list_scan = scan_ports.split('\\n')
-            ports.append(list_scan)
-
-        return ports
+        ip_ports = []
+        nm = nmap.PortScanner()
+        for ip in ipList:
+            ip_ports.append(nm.scan(ip, '22-443'))
+        
+        df_ip = pd.DataFrame(ip_ports)
+        return df_ip

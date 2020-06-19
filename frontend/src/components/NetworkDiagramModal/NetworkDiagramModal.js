@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Graph from "react-graph-vis";
 
-//import { getDataFromLocalNetwork } from "../services/localNetworkService";
+import { getDataFromLocalNetwork } from "../../services/localNetworkService";
 import { transformLocalNetworkToDiagram } from "../../helpers/NetworkDiagramHelper";
 
 const NetworkDiagramModal = () => {
@@ -24,9 +24,9 @@ const NetworkDiagramModal = () => {
   };
 
   async function getDataLocalNetwork() {
-    //let result = await getDataFromLocalNetwork();
-    //let newData = transformLocalNetworkToDiagram(result.data);
-    //setGraph(newData);
+    let result = await getDataFromLocalNetwork();
+    let newData = transformLocalNetworkToDiagram(result.data);
+    setGraph(newData);
   }
 
   useEffect(() => {
