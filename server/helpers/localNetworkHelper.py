@@ -1,10 +1,13 @@
 from subprocess import Popen
 from subprocess import PIPE
-
+from functools import reduce
+import json
+import nmap
+import pandas as pd
 
 class LocalNetworkHelper:
     @staticmethod
-    def getIpsFromLocalNetwork():
+    def getDataFromLocalNetwork():
         proc = Popen('sudo arp-scan --interface=eth0 --localnet', shell=True, stdout=PIPE, )
         scan_str = str(proc.communicate()[0])
         scan_str = scan_str.replace("\\t", "\t").replace("\\n", "\n")
@@ -22,31 +25,39 @@ class LocalNetworkHelper:
             ips[i] = element.split('\t')
             i=i+1
         
-        key_list = []
-        for i in range(len(ips)):
-            
-            key_list.append(i)
-         
-        ip_dict = {}
         
-        for key in key_list:
-            for ip_elements in ips:
-                ip_dict[key] = ip_elements
+        ip_dict = []
+        
+        
+
+        keys = ['IP', 'MAC', 'NAME']
 
         
+        
+        for i in range(len(ips)):
+            for value in ips[i]:
+                res = dict(zip(keys, ips[i]))
+            ip_dict.append(res)
+
+        ip_json = json.dumps(ip_dict)
         return ip_dict
 
     
     def getPortsOpen():
 
-        ips = LocalNetworkHelper().getIpsFromLocalNetwork()
-        ports = []
-        for i in range(len(ips)):
-            ip = ips[i][0]
-            proc = Popen('sudo nmap -O '+ip, shell=True, stdout=PIPE, )
-            scan_ports = str(proc.communicate()[0])
-            #scan_ports = scan_ports.replace("\\n", "\n")
-            list_scan = scan_ports.split('\\n')
-            ports.append(list_scan)
 
-        return ports
+        data_ip = LocalNetworkHelper().getDataFromLocalNetwork()
+        lista_ips = []
+        for d in data_ip:
+            lista_ips.append((d['IP']))
+
+        ip_ports = []
+        nm = nmap.PortScanner()
+        for ip in lista_ips:
+            ip_ports.append(nm.scan(ip, '22-443'))
+        
+        df_ip = pd.DataFrame(ip_ports)
+
+        
+
+        return df_ip

@@ -10,6 +10,7 @@ import Attack from './pages/Attack'
 import Report from './pages/Report'
 import Setting from './pages/Setting'
 import Target from './pages/Target';
+import LocalNetwork from './pages/LocalNetwork';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route exact path='/' component={Main}/>
               <Route exact path='/attack' component={Attack}/>
               <Route exact path='/report' component={Report}/>
+              <Route exact path='/LocalNetwork' component={LocalNetwork}/>
               <Route exact path='/setting' component={Setting}/>
               <Route exact path='/target' component={Target}/>
             </Layout>

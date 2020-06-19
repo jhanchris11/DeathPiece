@@ -31,6 +31,7 @@ const Aside = () => {
                 <Menu.Item key="1" icon={<ProjectOutlined />}>
                     <Link to='/' >Main</Link>
                 </Menu.Item>
+
                 <Menu.Item key="2" icon={<FileProtectOutlined />}>
                     <Link to='/setting'>Setting</Link>
                 </Menu.Item>
@@ -43,6 +44,9 @@ const Aside = () => {
                 </Menu.Item>
                 <Menu.Item key="5" icon={<ImportOutlined />}>
                     <Link to='/report'>Reporte</Link>
+                </Menu.Item>
+                <Menu.Item key="6" icon={<FileProtectOutlined />}>
+                    <Link to='/LocalNetwork'>LocalNetwork</Link>
                 </Menu.Item>
             </Menu>
         </Sider>
