@@ -16,16 +16,13 @@ import {
 
 import DynamicForm from "../components/DynamicForm/DynamicForm";
 import { message } from "antd";
-import { Spin, Button, Modal } from "antd";
-
-import NetworkDiagramModal from "../components/NetworkDiagramModal/NetworkDiagramModal";
+import { Spin } from "antd";
 
 const { Content } = Layout;
 
 const Setting = () => {
   const history = useHistory();
   const [dynamicForm, setDynamicForm] = useState(null);
-  const [visible, setVisible] = useState(false);
   const [dynamicFormOrder, setDynamicFormOrder] = useState(null);
 
   useEffect(() => {
@@ -50,46 +47,23 @@ const Setting = () => {
     message.success(messageText);
   };
 
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const handleOk = event => {
-    setVisible(false);
-  };
-
-  const handleCancel = event => {
-    setVisible(false);
-  };
-
   return (
     <Fragment>
       <Content className="cl-content">
         <Breadcrumb />
         <div className="cl-content-bg">
           <Fragment>
-            <Modal
-              title="Local Network"
-              visible={visible}
-              onOk={handleOk}
-              onCancel={handleCancel}
-            >{
-              visible && <NetworkDiagramModal />
-            }
-            </Modal>
-
-            <Button type="primary" onClick={showModal}>
-              Show local Network
-            </Button>
-
+            <h1 style={{fontSize: "1.8em", marginBottom:"30px"}}>Settings File</h1>
             <Spin spinning={dynamicForm == null}>
-              {dynamicForm != null && (
+              {dynamicForm != null ? (
                 <DynamicForm
                   dynamicForm={dynamicForm}
                   dynamicFormOrder={dynamicFormOrder}
                   parentCallBack={updateConfigFileOnSubmit}
                 />
-              )}
+              ) : 
+                <div style={{width:"100%"}}></div>
+              }
             </Spin>
           </Fragment>
         </div>
