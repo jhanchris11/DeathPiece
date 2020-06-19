@@ -52,16 +52,20 @@ const Setting = () => {
       <Content className="cl-content">
         <Breadcrumb />
         <div className="cl-content-bg">
-          <Spin spinning={dynamicForm == null}>
-            {dynamicForm != null && (
-              <DynamicForm
-                dynamicForm={dynamicForm}
-                dynamicFormOrder={dynamicFormOrder}
-                parentCallBack={updateConfigFileOnSubmit}
-              />
-            )}
-          </Spin>
-          ,
+          <Fragment>
+            <h1 style={{fontSize: "1.8em", marginBottom:"30px"}}>Settings File</h1>
+            <Spin spinning={dynamicForm == null}>
+              {dynamicForm != null ? (
+                <DynamicForm
+                  dynamicForm={dynamicForm}
+                  dynamicFormOrder={dynamicFormOrder}
+                  parentCallBack={updateConfigFileOnSubmit}
+                />
+              ) : 
+                <div style={{width:"100%"}}></div>
+              }
+            </Spin>
+          </Fragment>
         </div>
       </Content>
       <FooterMain />

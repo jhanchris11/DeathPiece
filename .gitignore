@@ -4,6 +4,7 @@
 /front-end/node_modules
 /.pnp
 .pnp.js
+DeepExploit
 
 # testing
 /coverage
