@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from helpers.configHelper import ConfigHelper
+from server.helpers.configHelper import ConfigHelper
 
 from webargs.flaskparser import use_args
 from webargs import fields
