@@ -16,13 +16,16 @@ import {
 
 import DynamicForm from "../components/DynamicForm/DynamicForm";
 import { message } from "antd";
-import { Spin } from "antd";
+import { Spin, Button, Modal } from "antd";
+
+import NetworkDiagramModal from "../components/NetworkDiagramModal/NetworkDiagramModal";
 
 const { Content } = Layout;
 
 const Setting = () => {
   const history = useHistory();
   const [dynamicForm, setDynamicForm] = useState(null);
+  const [visible, setVisible] = useState(false);
   const [dynamicFormOrder, setDynamicFormOrder] = useState(null);
 
   useEffect(() => {
@@ -47,21 +50,48 @@ const Setting = () => {
     message.success(messageText);
   };
 
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = event => {
+    setVisible(false);
+  };
+
+  const handleCancel = event => {
+    setVisible(false);
+  };
+
   return (
     <Fragment>
       <Content className="cl-content">
         <Breadcrumb />
         <div className="cl-content-bg">
-          <Spin spinning={dynamicForm == null}>
-            {dynamicForm != null && (
-              <DynamicForm
-                dynamicForm={dynamicForm}
-                dynamicFormOrder={dynamicFormOrder}
-                parentCallBack={updateConfigFileOnSubmit}
-              />
-            )}
-          </Spin>
-          ,
+          <Fragment>
+            <Modal
+              title="Local Network"
+              visible={visible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >{
+              visible && <NetworkDiagramModal />
+            }
+            </Modal>
+
+            <Button type="primary" onClick={showModal}>
+              Show local Network
+            </Button>
+
+            <Spin spinning={dynamicForm == null}>
+              {dynamicForm != null && (
+                <DynamicForm
+                  dynamicForm={dynamicForm}
+                  dynamicFormOrder={dynamicFormOrder}
+                  parentCallBack={updateConfigFileOnSubmit}
+                />
+              )}
+            </Spin>
+          </Fragment>
         </div>
       </Content>
       <FooterMain />

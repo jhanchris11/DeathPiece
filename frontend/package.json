@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@antirek/network-diagram": "^0.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -12,6 +13,7 @@
     "formik-antd": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-network-diagrams": "^0.8.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
